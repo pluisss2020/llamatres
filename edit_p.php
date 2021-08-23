@@ -201,9 +201,8 @@ if (!empty($_POST)) {
 			   <label>Rol</label>
 			   <select class="form-control" name="txtRol" >
 			         <option><?php echo $rol; ?></option>
-					 <option>Estudiante</option>
-					 <option>Docente</option>
-					 <option>Bibliotecario</option>
+					 <option>Jugador</option>
+					 <option>Moderador</option>
 					 <option>administrador</option>
 					 <option>Invitado</option>
 				</select>	  
