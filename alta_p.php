@@ -141,9 +141,8 @@ if (!empty($_POST)) {
 			 <div class="form-group">
 			   <label>Rol</label>
 			   <select class="form-control" name="txtRol" >
-			         <option>Estudiante</option>
-					 <option>Docente</option>
-					 <option>Bibliotecario</option>
+			         <option>Jugador</option>
+					 <option>Moderador</option>
 					 <option>administrador</option>
 					 <option>Invitado</option>
 				</select>	  
