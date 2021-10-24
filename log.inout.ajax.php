@@ -4,8 +4,8 @@ session_start();
 
 if ( !isset($_SESSION['username']) && !isset($_SESSION['userid']) ){ //No hay ninguna sesion iniciada
     
-    if ( $idcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) ){ //la conexion a la base de datos es ok
-           
+    if ( $idcnx = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME) )
+    { //la conexion a la base de datos es ok
         //if ( @mysql_select_db(DB_NAME,$idcnx) ){
        //LOGIN
 	   if (isset($_POST['login_username'])){     //login
