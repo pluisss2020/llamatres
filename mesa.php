@@ -1,13 +1,13 @@
 <?
-require("aut_verifica.inc.php"); // incluir motor de autentificación.
-$nivel_acceso=5; // definir nivel de acceso para esta página.
+require("aut_verifica.inc.php"); // incluir motor de autentificaciï¿½n.
+$nivel_acceso=5; // definir nivel de acceso para esta pï¿½gina.
 if ($nivel_acceso < $HTTP_SESSION_VARS['usuario_nivel']){
 header ("Location: $redir?error_login=5");
 exit;
 }
 
 require ("aut_config.inc.php"); // incluir configuracion.
-$pag=$HTTP_SERVER_VARS['PHP_SELF'];  // el nombre y ruta de esta misma página.
+$pag=$HTTP_SERVER_VARS['PHP_SELF'];  // el nombre y ruta de esta misma pï¿½gina.
 $J1="";
 $J2="";
 $J3="";
