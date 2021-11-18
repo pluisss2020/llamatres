@@ -81,6 +81,8 @@ $(document).ready(function(){
 
 conn.onmessage = function (event){
    var respuesta = JSON.parse(event.data);
+   if(respuesta.numerocarta != undefined || respuesta.imagen != undefined)
+   {
    console.log("numerocarta: " + respuesta.numerocarta + " imagen: " + respuesta.imagen);
    var cartaelegida = respuesta.numerocarta;
     switch(cartaelegida)
@@ -101,6 +103,7 @@ conn.onmessage = function (event){
         $("#N5").attr("src",respuesta.imagen);
         break;
     }
+  }
 };
 
   $(".ver_cartas_jugador").click(function(){
@@ -114,10 +117,7 @@ conn.onmessage = function (event){
   	//alert(j);
   	for(var i=1 ;i< 9;i++)
     $(Id_naipes_0[i-1]).replaceWith(\'<img onClick="jugar_carta(\'+ i + \')" class="NJ" id="\'+Id_naipes_1[i-1]+ \'" src="\'+ Img_carta[Player[p][i-1]] +\'" width="60" height="80">\');
-   });
-
-   
-
+  });
   });
 
 
