@@ -41,11 +41,11 @@ pre {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('images/b_bkg_3.jpg');
+    background-image: url('thumb-1920-212738.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%;
-    opacity: 0.6;
+    opacity: 0.7;
     filter:alpha(opacity=80);
 }
 </style>

@@ -9,6 +9,7 @@ echo'
   transition: width 1s, height 1s;
 }
 
+
 .NJ:hover {
   width: 90px;
   height: 120px;
@@ -24,6 +25,8 @@ echo'
   font-size: 16px;
   margin: 2px 2px;
   cursor: pointer;
+  position: relative;
+  left:-320px;
 }
 #MESAS {
   padding-left: 20px;	
@@ -68,16 +71,44 @@ let Id_naipes_1 = new Array("NJ1","NJ2","NJ3","NJ4","NJ5","NJ6","NJ7","NJ8");
 
 let Id_jugada = new Array("#N1","#N2","#N3","#N4","#N5");
 
+var conn = new WebSocket("ws://localhost:9000");
 
 $(document).ready(function(){
 
+  conn.onopen = function (event){
+    console.log("Conectado");
+};
+
+conn.onmessage = function (event){
+   var respuesta = JSON.parse(event.data);
+   console.log("numerocarta: " + respuesta.numerocarta + " imagen: " + respuesta.imagen);
+   var cartaelegida = respuesta.numerocarta;
+    switch(cartaelegida)
+    {
+      case "N1":
+        $("#N1").attr("src",respuesta.imagen);
+        break;
+      case "N2":
+        $("#N2").attr("src",respuesta.imagen);
+        break;
+      case "N3":
+        $("#N3").attr("src",respuesta.imagen);
+        break;
+      case "N4":
+        $("#N4").attr("src",respuesta.imagen);
+        break;
+      case "N5":
+        $("#N5").attr("src",respuesta.imagen);
+        break;
+    }
+};
 
   $(".ver_cartas_jugador").click(function(){
   	var p=LLAMATRES.select_player.selectedIndex;
   	var j= p+1;
     
     var nj; 
-  	document.cookie = "NJ="+encodeURIComponent(j);
+  	document.cookie = "NJ="+encodeURIComponent(j)+";secure";
     nj = readCookie("NJ");
   	//alert(nj);
   	//alert(j);
@@ -97,28 +128,49 @@ function jugar_carta(nro_carta){
   	
   	$(Id_jugada[nj-1]).attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
 
-  	/*
+  	
   	switch(nj){
   	case "1":	
-     $("#N1").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+    var imagen = Img_carta[Player[nj-1][nro_carta-1]];
+    var carta = "N1";
+    var datos = {"numerocarta": carta,"imagen": imagen};
+     cambio = $("#N1").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+     conn.send(JSON.stringify(datos));
      break;
     case "2":	
-     $("#N2").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
-     break; 
+      var imagen = Img_carta[Player[nj-1][nro_carta-1]];
+      var carta = "N2";
+      var datos = {"numerocarta": carta,"imagen": imagen};
+     cambio = $("#N2").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+     conn.send(JSON.stringify(datos));
+     break;
     case "3":	
-     $("#N3").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+      var imagen = Img_carta[Player[nj-1][nro_carta-1]];
+      var carta = "N3";
+      var datos = {"numerocarta": carta,"imagen": imagen};
+     cambio = $("#N3").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+     conn.send(JSON.stringify(datos));
+     conn.send("HOLA??");
      break;  
     case "4":	
-     $("#N4").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+      var imagen = Img_carta[Player[nj-1][nro_carta-1]];
+      var carta = "N4";
+      var datos = {"numerocarta": carta,"imagen": imagen};
+     cambio = $("#N4").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+     conn.send(JSON.stringify(datos));
      break;
     case "5":	
-     $("#N5").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+      var imagen = Img_carta[Player[nj-1][nro_carta-1]];
+      var carta = "N5";
+      var datos = {"numerocarta": carta,"imagen": imagen};
+     cambio = $("#N5").attr("src",Img_carta[Player[nj-1][nro_carta-1]]);
+     conn.send(JSON.stringify(datos));
      break;    
     default:
     console.log(nj); 
 
     }
-    */ 
+    
  }
 
 
@@ -304,12 +356,14 @@ l=0;
 ';
 ?>
 
+
 <div class="container-fluid" >
 	<div class="row">
 	 
 	  <div class="col-sm-3" id="capa_A">
-		  <H3>CAPA A</H3>
-		  <H4>LLAMATRES</H4><br>
+		  <H3 style="color: white;">CAPA A</H3>
+		  <H4 style="color: white;">LLAMATRES</H4><br>
+      
 		  <div id="capa_n"></div>
 	  </div>
 	  
@@ -327,7 +381,7 @@ l=0;
     
   </tr>
   <tr>
-    <td width="6%" height="253" valign="top" rowspan="2">&nbsp;
+    <td width="9%" height="253" valign="top" rowspan="2">&nbsp;
       <p><input type="text" name="T2" size="12"><img id="N2" src="images/atras.jpg" width="60" height="80"><span class="badge">2</span></p>
       <p>&nbsp;</p>
       <p>&nbsp; <input type="text" name="T3" size="12"><img id="N3" src="images/atras.jpg" width="60" height="80"><span class="badge">3</span></td>
@@ -342,7 +396,7 @@ l=0;
       <p>&nbsp;</td>
 
        	
-     <td width="34%" height="1" valign="top">
+     <td width="349%" height="1" valign="top">
      <div id="HDR_MESAS">	
      <H3 style="margin-top:2px;margin-bottom:2px;">MESAS&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<a href="#">+</a></H3>
      </div>
@@ -361,11 +415,35 @@ l=0;
          <td>C</td>
       </tr>
       </table>
-     </div>  
+     </div> 
+     <div class="columnd">
+  <ul>
+<?php
+    include('phpchat/index.php')
+?>
+</ul>
+<style>
+  .columnd ul{
+    background-color: white;
+    position: fixed;
+    opacity: 0.8;
+  }
+</style>
+
+
+
+
+
+
+
+		
+	  </div>
+      
     </td> 
     	
   
   </tr>
+  
   <tr>
     <td width="32%" height="66" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input type="text" name="T4" size="13"><img id="N4" src="images/atras.jpg" width="60" height="80"><span class="badge">4</span>
@@ -385,15 +463,18 @@ l=0;
 
 
 
+
+
+
 		
 	  </div>
 	</div>
 	
-	<div class="row">  
+	<div class="row" >  
 	  <div class="col-sm-3" >
-	  	<div id="capa_C"><H4>CAPA C</H4></div>
+	  	<div id="capa_C" style="color: white;"><H4>CAPA C</H4></div>
 	  </div>
-	  <H4>CAPA D</H4>
+	  <H4 >CAPA D</H4>
 	  <div class="col-sm-9" id="capa_D">
 <script>init_cartas();</script>	  	
 <FORM NAME="LLAMATRES" >
@@ -420,9 +501,9 @@ l=0;
 		      </select>
 		</td>
 
-	    <td height="120px"><INPUT class="boton" TYPE="button" VALUE="Mezclar" onClick="Mezclar()"></td>
-	    <td height="120px"><INPUT class="boton" TYPE="button" VALUE="Cortar" onClick="Cortar()"></td>
-	    <td height="120px"><INPUT class="boton" TYPE="button" VALUE="Repartir" onClick="Repartir()"></td>
+	    <td height="100px"><INPUT class="boton" TYPE="button" VALUE="Mezclar" onClick="Mezclar()"></td>
+	    <td height="100px"><INPUT class="boton" TYPE="button" VALUE="Cortar" onClick="Cortar()"></td>
+	    <td height="100px"><INPUT class="boton" TYPE="button" VALUE="Repartir" onClick="Repartir()"></td>
 	     </tr>
     </table>
 </FORM>
