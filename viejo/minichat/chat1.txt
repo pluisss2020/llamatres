@@ -1,0 +1,11 @@
+ger |  | mensaje mesa 1 | 15 feb 2006 20:04 | 192.168.0.5
+fer |  | hola ger | 15 feb 2006 20:05 | 192.168.0.4
+ger |  | mensaje mesa 1 | 15 feb 2006 20:06 | 192.168.0.5
+fer |  | hola ger | 15 feb 2006 20:08 | 192.168.0.4
+ana |  | hola | 09 may 2006 18:19 | 192.168.0.4
+ana |  | hola | 09 may 2006 18:19 | 192.168.0.4
+ana |  | hola | 09 may 2006 18:19 | 192.168.0.4
+ana |  | hola | 09 may 2006 18:19 | 192.168.0.4
+fer |  | hola | 09 may 2006 18:20 | 192.168.0.2
+ger |  | holas puedo jugar | 09 may 2006 18:25 | 192.168.0.5
+ger |  | picol y bolo | 09 may 2006 18:25 | 192.168.0.5

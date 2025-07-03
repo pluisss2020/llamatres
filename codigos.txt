@@ -1,0 +1,4 @@
+status mesa
+I - Inactiva
+A - Abierta sin jugar
+J - Jugando

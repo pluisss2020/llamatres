@@ -1,0 +1,106 @@
+*****************************
+*** MiniChat v1.5         ***
+*** Creado por: Electros  ***
+*** Web: www.electros.net ***
+*****************************
+
+Indice:
+1. Instalación.
+2. Estilo.
+3. Caretos y palabras censuradas.
+4. Actualización a v1.5.
+5. Mejoras.
+
+**********************
+*** 1. Instalación ***
+**********************
+
+Requisitos:
+- PHP 4.x o superior.
+
+La forma de instalación es muy sencilla, simplemente sube la carpeta minichat al servidor y
+pega el siguiente código en la página donde quieras usar MiniChat:
+
+<iframe src="minichat/minichat.php" width="150" height="250" frameborder="0" scrolling="no"></iframe>
+
+El directorio "minichat" requiere el permiso CHMOD 777.
+
+Los mensajes son almacenados en un archivo llamado minichat.txt, el cuál se crea automáticamente
+si no existe.
+
+Nota: Si has respaldado el archivo minichat.txt y lo vuelves a subir, puede que sea necesario
+darle el permiso CHMOD 666.
+
+Aviso: El MiniChat deja un salto de línea al final del archivo minichat.txt, si has editado este archivo
+es necesario que al final exista un salto de línea, o de lo contrario el primer mensaje que escribas
+quedará en la misma línea del último mensaje y por lo tanto no será visible.
+
+*****************
+*** 2. Estilo ***
+*****************
+
+Para cambiar el tipo de letra de MiniChat, color, tamaño, tabla de los mensajes,
+formulario, etc., debes editar el archivo estilo.css.
+
+****************************************
+*** 3. Caretos y palabras censuradas ***
+****************************************
+
+Para agregar más caretos abre el archivo minichat.php y busca la siguiente parte:
+
+// --> Inicio caretos
+$lista_caretos = array(
+':D'   => 'alegre.gif',
+':P'   => 'burla.gif',
+...
+':('   => 'triste.gif'
+) ;
+// --> Fin caretos
+
+El careto debe ser agregado con el siguiente formato:
+
+'codigo del careto' => 'nombre de archivo de la imagen',
+
+Nota: Observa que el último careto no lleva coma (,) al final.
+
+Recuerda que todas las imágenes deben estar dentro de la carpeta "caretos".
+
+De igual forma para las palabras censuradas, debes escribir el insulto y la palabra por la cuál
+se va a sustituir.
+
+*******************************
+*** 4. Actualización a v1.5 ***
+*******************************
+
+Para actualizar MiniChat deberás sustituir todos los archivos, excepto la carpeta "caretos" y el
+archivo mensajes.txt, una vez subidos los archivos ejecuta el archivo actualizar.php y sigue las
+instrucciones, una vez que el archivo minichat.txt se haya actualizado se creará un archivo
+llamado minichat_res.txt que contiene los mensajes de la versión antigua, esto es por si hubo
+algún error durante la actualización, si todo salió correctamente puedes eliminar este archivo.
+
+******************
+*** 5. Mejoras ***
+******************
+
+v1.5
+» Corregido bug que permitía insertar código HTML.
+» Almacenamiento mejorado de los mensajes, más seguro, más ordenado y ocupa menos espacio.
+» Mejoras importantes en la forma de manejar el archivo minichat.txt, si no existe se intentará
+crear y en caso de existir se comprobará si tiene el permiso CHMOD correcto (debido a la poca
+efectividad ya no se asignará automáticamente).
+» Código HTML y CSS válido por la www.w3.org según el estándar HTML 4.01 Transitional.
+v1.4
+» Se almacena la fecha del mensaje y la dirección IP del usuario que escribió el mensaje.
+» Se puede elegir si se desea o no mostrar la fecha y la dirección IP.
+» Optimización en el código para las funciones de caretos y palabras censuradas.
+» Comprueba automáticamente si el archivo minichat.txt tiene el permiso CHMOD correcto y lo
+intentará cambiar en caso de no estarlo.
+v1.3
+» Tiene una forma más optimizada para almacenar los mensajes.
+» Cuenta con filtro anti-spam.
+» Detecta automáticamente cuando se introduce una dirección email o una url.
+v1.2
+» Se agrego una opción para no permitir código HTML en los mensajes.
+v1.1
+» Se ha agregado una protección para evitar que palabras muy largas te descuadren el diseño del
+MiniChat.

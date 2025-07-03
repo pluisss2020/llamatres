@@ -1,0 +1,280 @@
+/* <style> */
+
+/*
+
+// Copyright (C) 2005 Ilya S. Lyubinskiy. All rights reserved.
+// Technical support: http://www.php-development.ru/
+//
+// YOU MAY NOT
+// (1) Remove or modify this copyright notice.
+// (2) Distribute this code, any part or any modified version of it.
+//     Instead, you may link to the homepage of this code:
+//     http://www.php-development.ru/products/java-chat/.
+// (3) Use this code, any part or any modified version of it
+//     as part of another product.
+//
+// YOU MAY
+// (1) Use this code or its customized version on your website.
+//
+// NO WARRANTY
+// This code is provided "as is" without warranty of any kind, either
+// expressed or implied, including, but not limited to, the implied warranties
+// of merchantability and fitness for a particular purpose. You expressly
+// acknowledge and agree that use of this code is at your own risk.
+
+*/
+
+/* ----- Menu --------------------------------------------------------------- */
+
+/* ----- Required ----- */
+
+div.sample2 div.vert_menu
+{
+  position: absolute;
+  visibility: hidden;
+  z-index: 1;
+}
+
+div.sample2 div.horz_menu a { display: block; float: left; }
+div.sample2 div.vert_menu a { display: block; float: none; }
+
+
+/* ----- Buttons ----- */
+
+div.sample2 div.horz_menu a,
+div.sample2 div.vert_menu a,
+div.sample2 div.menu_form div.menu_form_header
+{
+  border: 1px solid black;
+
+  width: 120px;
+
+  height:      20px;
+  line-height: 19px;
+  vertical-align: middle;
+
+  background: url('menu.png') 0px 40px;
+
+  text-decoration: none;
+  font-family: "Times New Roman", Serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: #206040;
+}
+
+div.sample2 div.horz_menu a:hover,
+div.sample2 div.vert_menu a:hover { background-position: 0px 20px; }
+
+div.sample2 div.horz_menu a.parent,
+div.sample2 div.vert_menu a.parent
+{
+  color: #206060;
+  background-position: 0px 0px;
+}
+
+div.sample2 div.horz_menu a.active,
+div.sample2 div.vert_menu a.active,
+div.sample2 div.horz_menu a.parent:hover,
+div.sample2 div.vert_menu a.parent:hover,
+div.sample2 div.horz_menu a.active:hover,
+div.sample2 div.vert_menu a.active:hover
+{
+  color: #206060;
+  background-position: 0px 60px;
+}
+
+/* ----- Forms ----- */
+
+/* Form elements */
+
+div.sample2 form { margin: 0px; }
+
+div.sample2 input.field
+{
+  border: 1px solid #808080;
+  width: 95%;
+  font-family: Arial, Sans-Serif;
+  font-size: 12px;
+}
+
+div.sample2 input.btn
+{
+  border: 1px solid #808080;
+  background-color: #DDFFDD;
+  font-family: Verdana, Sans-Serif;
+  font-size: 11px;
+}
+
+/* Form div */
+
+div.sample2 div.menu_form div.menu_form_header
+{
+  border-bottom: 0px;
+  width: 200px;
+  background: url('form_header.png') no-repeat;
+}
+
+div.sample2 div.menu_form div.menu_form_body
+{
+  border: 1px solid black;
+  width: 200px;
+  background: url('form.png') no-repeat left bottom;
+}
+
+div.sample2 div.menu_form form { padding: 8px 10px 10px 10px; }
+
+/* Form table */
+
+div.sample2 div.menu_form table
+{
+  border-collapse: collapse;
+  width: 100%;
+}
+
+div.sample2 div.menu_form th
+{
+  width: 1%;
+  padding: 0px 5px 2px 0px;
+
+  text-align: left;
+
+  font-family: "Times New Roman", Serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: #004060;
+}
+
+div.sample2 div.menu_form td
+{
+  width: 99%;
+  padding: 0px 0px 2px 0px;
+}
+
+/* ----- Tabs --------------------------------------------------------------- */
+
+/* ----- General ----- */
+
+div.sample2 h3
+{
+  margin: 0px 0px 10px 0px;
+  font-size: 1.05em;
+}
+
+div.sample2 div.tabs { width:  427px; }
+
+div.sample2 div.tab
+{
+  border: 1px solid black;
+  border-top: none;
+  width:  483px;
+  height: 250px;
+  overflow: auto;
+}
+
+div.sample2 div.tab_1
+{
+  position: relative;
+  left: 5px;
+  top:  5px;
+  width:  483px;
+  height: 240px;
+  overflow: auto;
+}
+
+/* ----- Form ----- */
+
+div.sample2 form { margin: 0px; }
+
+div.sample2 table.form { border-collapse: collapse; }
+
+div.sample2 table.form th, div.sample2 table.form td
+{
+  font-family: Verdana;
+  font-size: 13px;
+  padding-bottom: 2px;
+}
+
+div.sample2 table.form th
+{
+  padding-right: 5px;
+  font-weight: 100;
+}
+
+/* ----- Chat ----- */
+
+div.sample2 div.tab table.chat
+{
+  border-collapse: collapse;
+  width:  481px;
+  height: 250px;
+}
+
+div.sample2 div.tab table.chat td
+{
+  vertical-align: middle;
+  text-align: center;
+  padding: 0px;
+}
+
+div.sample2 div.tab table.chat table
+{
+  border-collapse: collapse;
+  width:  473px;
+  height: 240px;
+  background-color: #FFFFFF;
+  vertical-align: top;
+  text-align: left;
+}
+
+div.sample2 div.tab table.chat table td
+{
+  vertical-align: top;
+  text-align: left;
+  padding: 0px;
+}
+
+div.sample2 div.tab table.chat input
+{
+  width: 98%;
+  border: 0px;
+}
+
+div.sample2 div#ChatClientUsers
+{
+  float: right;
+  margin-left: -100px;
+  border: 2px inset black;
+  width:  100px;
+  height: 240px;
+  overflow: auto;
+}
+
+div.sample2 div#ChatClientUsers a { display: block; }
+
+div.sample2 div#ChatClientChat
+{
+  border: 2px inset black;
+  width:  362px;
+  height: 209px;
+  overflow: auto;
+}
+
+div.sample2 div#ChatClientChat div { padding: 0px 3px; }
+
+div.sample2 div#ChatClientTell
+{
+  margin-top: 2px;
+  border: 2px inset black;
+  width: 362px;
+  height: 25px;
+}
+
+/* ----- Select ----- */
+
+div.sample2 div#ChatClientRooms a
+{
+  text-decoration: none;
+  font-weight: 900;
+  color: #0000B0;
+}
+

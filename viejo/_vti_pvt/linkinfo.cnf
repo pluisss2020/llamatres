@@ -1,0 +1,21 @@
+vti_encoding:SR|utf8-nl
+javascript\:chatclienttab('tab_rules');:chat/chat.html
+pag1_restringido.php:login.html
+javascript\: chatclientdofind();:chat/chat.html
+javascript\: chatclientdonewroom();:chat/chat.html
+chat/chatclient.chatclient.class:chat/chat.html
+javascript\: chatclientdoignore();:chat/chat.html
+javascript\:chatclienttab('tab_chat');:chat/chat.html
+minichat/loader.php:minichat/minichat.htm
+left.html:frames.html
+http\://java.sun.com/products/plugin/autodl/jinstall-1_4-windows-i586.cab:chat/chat.html
+javascript\: chatclientdoinfo();:chat/chat.html
+javascript\:chatclientdologin();:chat/chat.html
+javascript\:chatclientdotell();:chat/chat.html
+javascript\: chatclientdoprivate();:chat/chat.html
+minichat/push.php:minichat/minichat.htm
+minichat/static.php:minichat/minichat.htm
+f_login.html:frames.html
+f_player.html:frames.html
+javascript\:chatclienttab('tab_select');:chat/chat.html
+clsid\:8ad9c840-044e-11d1-b3e9-00805f499d93:chat/chat.html

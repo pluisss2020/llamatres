@@ -1,0 +1,189 @@
+<html>
+<title>Calculadora Javascript</title>
+<!-- Changed by: Francisco Javier Jaliano Garcia, 22-Jan-1997 -->
+<body bgcolor=ffffff>
+<center>
+<font style="font-family: tahoma;
+font-size: 8pt"><b>CALCULADORA JAVASCRIPT</b>
+<hr>
+</center>
+Esta calculadora realizada en Javascript utiliza notacion polaca inversa, es decir primero han de introducirse los dos operandos y despues el operador.
+<br>
+Una operacion por ejemplo seria 2 * 3 y se realizaria de la siguiente forma, primero se introduce el `2`, se pulsa enter para que suba a la pila, despues se introduce el `3` y para finalizar se pulsa `*' apareciendo el resultado en el acumulador.
+<hr>
+<form>
+<center>
+<table border CELLPADDING=4>
+<tr>
+<td align=center>Pila:</td>
+<td align=center>
+<input name=stack value="0" aling=rigth>
+</td>
+</tr>
+<tr>
+<td align=center>Acumulador:</td>
+<td aling=center>
+<input name="display" value="0">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<p>
+<table BORDER CELLPADDING=4>
+<tr aling=center>
+<td>
+<input type="button" value=" 1 "
+onClick="addChar(this.form.display,'1')">
+</td>
+<td>
+<input type="button" value=" 2 "
+onClick="addChar(this.form.display,'2')">
+</td>
+<td>
+<input type="button" value=" 3 "
+onClick="addChar(this.form.display,'3')">
+</td>
+<td>
+<input type="button" value=" - "
+onClick="subtract(this.form)">
+</td>
+</tr>
+<p>
+<tr aling=center>
+<td>
+<input type="button" value=" 4 "
+onClick="addChar(this.form.display,'4')">
+</td>
+<td>
+<input type="button" value=" 5 "
+onClick="addChar(this.form.display,'5')">
+</td>
+<td>
+<input type="button" value=" 6 "
+onClick="addChar(this.form.display,'6')">
+</td>
+<td>
+<input type="button" value=" * "
+onClick="multiply(this.form)">
+</td>
+</tr>
+<p>
+<tr aling=center>
+<td>
+<input type=button value=" 7 "
+onClick="addChar(this.form.display,'7')">
+</td>
+<td>
+<input type="button" value=" 8 "
+onClick="addChar(this.form.display,'8')">
+</td>
+<td>
+<input type="button" value=" 9 "
+onClick="addChar(this.form.display,'9')">
+</td>
+<td>
+<input type="button" value=" / "
+onClick="divide(this.form)">
+</td>
+</tr>
+<p>
+<tr aling=center>
+<td>
+<input type="button" value=" 0 "
+onClick="addChar(this.form.display,'0')">
+</td>
+<td>
+<input type="button" value=" . "
+onClick="addChar(this.form.display,'.')">
+</td>
+<td>
+<input type="button" value=" +/- "
+onClick="changeSign(this.form.display)">
+</td>
+<td>
+<input type="button" value=" + "
+onClick="add(this.form)">
+</td>
+</tr>
+<p>
+<tr aling=center>
+<td colspan="2">
+<input type="button" value=" Enter " name="enter"
+onClick="pushStack(this.form)">
+</td>
+<td colspan="2">
+<input type="button" value=" Ce "
+onClick="this.form.display.value = 0 ">
+</td>
+</tr>
+</table></font>
+</form>
+<hr>
+<script language="LiveScript">
+
+// keep track of whether we just computed display.value
+var computed = false
+function pushStack(form)
+{
+sdf
+form.stack.value = form.display.value
+form.display.value =0
+}
+// Define una funcion que suma un nuevo caracter al visor
+function addChar(input, character)
+{
+// auto-push the stack if teh last value was computed
+if (computed) {
+pushStack(input.form)
+computed = false
+}
+// make sure input.value is a string
+if (input.value == null || input.value == "0")
+input.value = character
+else
+input.value += character
+}
+function deleteChar(input)
+{
+input.value = input.value.substring(0, input.value.lengh - 1)
+}
+function add(form)
+{
+form.display.value = form.display.value - (0 - form.stack.value)
+computed = true
+}
+
+function subtract(form)
+{
+form.display.value = form.stack.value - form.display.value
+computed = true
+}
+function multiply(form)
+{
+form.display.value = form.stack.value * form.display.value
+computed = true
+}
+function divide(form)
+{
+var divisor = 0 + form.display.value
+if (divisor == 0 ) {
+alert(" No se puede dividir entre 0 ");
+return
+}
+form.display.value = form.stack.value / divisor
+computed = true
+}
+function changeSign(input)
+{
+// could use input.value = 0 - input.value, but let's show off substring
+if (input.value.substring(0, 1) == "-")
+input.value = input.value.substring(1, input.value.length)
+else
+input.value = "-" + input.value
+}
+</script>
+</center>
+</body>
+</html>
+

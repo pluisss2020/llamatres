@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+
+<title>Multi-Room Live Chat</title>
+
+<link rel="stylesheet" type="text/css" href="menu.css" />
+
+<script type="text/javascript" src="menu.js">
+</script>
+
+</head>
+<body style="margin: 0px; padding: 0px;">
+<div class="sample2">
+
+<?php
+// ---- Applet -----------------------------------------------------------------
+?>
+
+<div style="width: 1px; height: 1px; overflow: hidden;">
+
+<object width="1" height="1" style="margin-top: -1px;"
+        classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+        codebase="http://java.sun.com/products/plugin/autodl/jinstall-1_4-windows-i586.cab#Version=1,4,0,0">
+  <param name="type"       value="application/x-java-applet;jpi-version=1.4.0">
+  <param name="code"       value="chatclient.ChatClient.class">
+  <param name="codebase"   value=".">
+  <param name="scriptable" value="true">
+  <param name="host"       value="localhost">
+  <param name="port"       value="9102">
+</object>
+
+<applet width="1" height="1" style="margin-top: -1px;"
+        code="chatclient.ChatClient.class" codebase="." MAYSCRIPT="MAYSCRIPT">
+<param name = "host" value = "localhost">
+<param name = "port" value = "9102">
+</applet>
+
+</div>
+
+<?php
+// ---- Main Menu --------------------------------------------------------------
+?>
+
+<?php
+// ----- Main Menu -----
+?>
+
+<div class="horz_menu">
+  <a class="parent" id="menu_rooms" style="border-right: none;" href="#">&nbsp;&nbsp;&nbsp;Rooms</a>
+  <a class="parent" id="menu_users" style="border-right: none;" href="#">&nbsp;&nbsp;&nbsp;Users</a>
+  <a id="menu_chat" style="border-right: none;" href="javascript:ChatClientTab('tab_chat');">&nbsp;&nbsp;&nbsp;Chat</a>
+  <a id="menu_rules" href="javascript:ChatClientTab('tab_rules');">&nbsp;&nbsp;&nbsp;Rules</a>
+  <br clear="both" />
+</div>
+
+<?php
+// ----- Menu Rooms ------------------------------------------------------------
+?>
+
+<div class="vert_menu" id="menu_rooms_child">
+
+  <a id="menu_rooms_select" style="border-bottom: none;" href="javascript:ChatClientTab('tab_select');">&nbsp;&nbsp;&nbsp;Select</a>
+  <a class="parent" id="menu_rooms_new" href="#">&nbsp;&nbsp;&nbsp;New Room</a>
+
+  <?php
+  // ----- New -----
+  ?>
+
+  <div class="menu_form" id="menu_rooms_new_child">
+  <div class="menu_form_header">&nbsp;&nbsp;&nbsp;New Room</div>
+  <div class="menu_form_body">
+    <form name="ChatClientNewRoom" action="javascript: ChatClientDoNewRoom();">
+    <table>
+    <tr>
+      <th>Title:</th>
+      <td><input class="field" type="text" name="Room" onfocus="select();" /></td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td><input class="btn" type="submit" value="Submit" /></td>
+    </tr>
+    </table>
+    </form>
+  </div>
+  </div>
+
+</div>
+
+
+<?php
+// ----- Menu Users ------------------------------------------------------------
+?>
+
+<div class="vert_menu" id="menu_users_child">
+
+  <a class="parent" id="menu_users_find"    style="border-bottom: none;" href="#">&nbsp;&nbsp;&nbsp;Find User</a>
+  <a class="parent" id="menu_users_ignore"  style="border-bottom: none;" href="#">&nbsp;&nbsp;&nbsp;[Un-]ignore</a>
+  <a class="parent" id="menu_users_private" style="border-bottom: none;" href="#">&nbsp;&nbsp;&nbsp;Private Message</a>
+  <a class="parent" id="menu_users_info" href="#">&nbsp;&nbsp;&nbsp;User Info</a>
+
+  <?php
+  // ----- Private -----
+  ?>
+
+  <div class="menu_form" id="menu_users_private_child">
+  <div class="menu_form_header">&nbsp;&nbsp;&nbsp;Private Message</div>
+  <div class="menu_form_body">
+    <form name="ChatClientPrivate" action="javascript: ChatClientDoPrivate();">
+    <table>
+    <tr>
+      <th style="padding-bottom: 1px;">User:</th>
+      <td style="padding-bottom: 1px;">
+      <input class="field" type="text" name="User" onfocus="select();" />
+      </td>
+    </tr>
+    <tr>
+      <th>Message:</th>
+      <td><input class="field" type="text" name="Tell" onfocus="select();" /></td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td><input class="btn" type="submit" value="Submit" /></td>
+    </tr>
+    </table>
+    </form>
+  </div>
+  </div>
+
+  <?php
+  // ----- Find -----
+  ?>
+
+  <div class="menu_form" id="menu_users_find_child">
+  <div class="menu_form_header">&nbsp;&nbsp;&nbsp;Find User</div>
+  <div class="menu_form_body">
+    <form name="ChatClientFind" action="javascript: ChatClientDoFind();">
+    <table>
+    <tr>
+      <th>User:</th>
+      <td><input class="field" type="text" name="User" onfocus="select();" /></td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td><input class="btn" type="submit" value="Submit" /></td>
+    </tr>
+    </table>
+    </form>
+  </div>
+  </div>
+
+  <?php
+  // ----- Ignore -----
+  ?>
+
+  <div class="menu_form" id="menu_users_ignore_child">
+  <div class="menu_form_header">&nbsp;&nbsp;&nbsp;Ignore/Unignore</div>
+  <div class="menu_form_body">
+    <form name="ChatClientIgnore" action="javascript: ChatClientDoIgnore();">
+    <table>
+    <tr>
+      <th>User:</th>
+      <td><input class="field" type="text" name="User" onfocus="select();" /></td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td><input class="btn" type="submit" value="Submit" /></td>
+    </tr>
+    </table>
+    </form>
+  </div>
+  </div>
+
+  <?php
+  // ----- Info -----
+  ?>
+
+  <div class="menu_form" id="menu_users_info_child">
+  <div class="menu_form_header">&nbsp;&nbsp;&nbsp;User Info</div>
+  <div class="menu_form_body">
+    <form name="ChatClientInfo" action="javascript: ChatClientDoInfo();">
+    <table>
+    <tr>
+      <th>User:</th>
+      <td><input class="field" type="text" name="User" onfocus="select();" /></td>
+    </tr>
+    <tr>
+      <th>&nbsp;</th>
+      <td><input class="btn" type="submit" value="Submit" /></td>
+    </tr>
+    </table>
+    </form>
+  </div>
+  </div>
+
+</div>
+
+<?php
+// ----- Menu Attach -----------------------------------------------------------
+?>
+
+<script type="text/javascript">
+
+popup_attach("menu_rooms", "menu_rooms_child", "hover", "y", "pointer");
+popup_attach("menu_rooms_new", "menu_rooms_new_child", "click", "x", "pointer");
+popup_attach("menu_users", "menu_users_child", "hover", "y", "pointer");
+popup_attach("menu_users_private", "menu_users_private_child", "click", "x", "pointer");
+popup_attach("menu_users_find", "menu_users_find_child", "click", "x", "pointer");
+popup_attach("menu_users_ignore", "menu_users_ignore_child", "click", "x", "pointer");
+popup_attach("menu_users_info", "menu_users_info_child", "click", "x", "pointer");
+
+</script>
+
+<?php
+/ ----- Tabs -------------------------------------------------------------------
+?>
+
+<div class="tabs">
+
+<?php
+// ----- Login -----
+?>
+
+<div class="tab" id="tab_login">
+<div class="tab_1">
+<h3>Member Login</h3>
+<form name="ChatClientLogin" action="javascript:ChatClientDoLogin();">
+<table class="form">
+<tr>
+  <th>Username:</th>
+  <td><input type="text" name="username" /></td>
+</tr>
+<tr>
+  <th>Password:</th>
+  <td><input type="text" name="password" /></td>
+</tr>
+<tr>
+  <th>&nbsp;</th>
+  <td><input type="submit" value="Submit" /></td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+
+<?php
+// ----- Chat -----
+?>
+
+<div class="tab" id="tab_chat" style="display: none;">
+
+<table class="chat">
+<tr>
+<td>
+<center>
+<table>
+<tr>
+<td>
+
+<div id="ChatClientUsers"></div>
+<div id="ChatClientChat"></div>
+<div id="ChatClientTell">
+<form name="ChatClientTell" action="javascript:ChatClientDoTell();">
+<input name="Tell" type="text" style="whitespace: normal;" />
+</form>
+</div>
+
+</td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+</table>
+</center>
+</div>
+
+<?php
+// ----- Select -----
+?>
+
+<div class="tab" id="tab_select" style="display: none;">
+<div class="tab_1" id="ChatClientRooms">
+</div>
+</div>
+
+<?php
+// ----- Rules -----
+?>
+<p><a href="chatserver/messenger.php">setup</a></p>
+<p><a href="phpinfo.php">setup</a></p>
+
+<div class="tab" id="tab_rules" style="display: none;">
+<div class="tab_1">
+<h3>Chat Rules</h3>
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+Here you can write your chat rules!<br />
+</div>
+</div>
+
+</div>
+
+<?php
+// ----- Menu ------------------------------------------------------------------
+?>
+
+</div>
+</body>
+</html>

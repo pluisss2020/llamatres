@@ -1,0 +1,285 @@
+<!-- Start of Money Converter Script -->
+<!-- Instructions:
+	1.  Copy the coding into the HEAD of your HTML document
+	2.  Add the last code into the BODY of your HTML document  -->
+<!-- Script supplied with CoffeeCup HTML Editor -->
+<!--             www.coffeecup.com              -->
+<SCRIPT LANGUAGE="JavaScript">
+
+<!-- Hide Script from Old Browsers
+Function Mezclar()
+{
+' C cartas que quedan arriba en el corte
+'Dim C As Integer
+'Dim L1 As Integer
+'Dim M As Integer
+'Dim i, j, k
+
+'Dim Aux(40)
+M = Int((100) * Rnd + 20);
+
+For(k = 0;k<M;k++){
+Cortar();
+    For (i=0;i<40;i++){
+     Aux(i) = Cartas(i);
+    }
+
+    C = 20;
+    L1 = Int((20) * Rnd + 5);
+
+    For (i = L1 ;i<40 - L1;i=i+ 2){
+     Cartas(i + 1) = Aux(i);
+     Cartas(i) = Aux(i + 1);
+
+  }
+}
+'Text1.Text = M
+'List1.Clear
+'For i = 0 To 39
+'List1.AddItem Img_carta(Cartas(i))
+'Next
+}
+
+
+
+function roundToPennies(n)
+{
+   pennies = n * 100;
+
+   pennies = Math.round(pennies);
+
+   strPennies = "" + pennies;
+   len = strPennies.length;
+
+   first = strPennies.substring(0, len - 2) + ".";
+   last = strPennies.substring(len - 2, len);
+
+   if(first == ".")
+   {
+      first = "0."
+   }
+
+   if(last.length == 1)
+   {
+      last += "0";
+   }
+   return first + last;
+}
+
+function CC_Compute()
+{
+   MoneyValue = document.forms['MoneyForm'].elements['MoneyFormIn'].value;
+   UnitPlace = document.forms['MoneyForm'].elements['Unit'].selectedIndex;
+   Unit2Place = document.forms["MoneyForm"].elements["Unit2"].selectedIndex;
+   UnitValue = document.forms['MoneyForm'].elements['Unit'].options[UnitPlace].value;
+   Unit2Value = document.forms['MoneyForm'].elements['Unit2'].options[Unit2Place].value;
+   UnitName = document.forms['MoneyForm'].elements['Unit'].options[UnitPlace].text;
+   Unit2Name = document.forms['MoneyForm'].elements['Unit2'].options[Unit2Place].text;
+
+   if(MoneyValue == "")
+   window.alert("You must choose an amout to convert");
+
+   else
+
+   if(UnitValue == "Alert")
+   window.alert("You must choose a first currency");
+
+   else
+
+   if(Unit2Value == "Alert")
+   window.alert("You must choose a second currency");
+
+   else
+   {
+      Money = eval(MoneyValue);
+
+      if(UnitName == Unit2Name)
+      document.forms['0'].elements['MoneyFormOut'].value = roundToPennies(Money);
+
+      else
+      {
+         ToTRL = eval(UnitValue);
+         FromTRL = eval(Unit2Value);
+
+         TRL = Money * ToTRL;
+         Money = TRL * FromTRL;
+
+         document.forms['0'].elements['MoneyFormOut'].value = roundToPennies(Money);
+     }
+   }
+}
+// -->
+
+</SCRIPT>
+</HEAD>
+<BODY>
+<CENTER>
+<H1>LLAMATRES</H1>
+<HR>
+<FORM NAME="LLAMATRES">
+<INPUT TYPE="Button" VALUE="Mezclar" onClick="Cortar()">
+<INPUT TYPE="Button" VALUE="Cortar" onClick="MEzclar()">
+<INPUT TYPE="Button" VALUE="Repartir" onClick="Repartir()">
+</FORM>
+
+<!-- End of Money Converter Script -->
+
+
+
+/*
+
+
+Private Sub Cortar()
+' C cartas que quedan arriba en el corte
+Dim C As Integer
+Dim R As Integer
+Dim i, j, k
+Dim Aux(40)
+
+For i = 0 To 40
+ Aux(i) = Cartas(i)
+Next
+
+C = Int((20) * Rnd + 10)
+R = 40 - C
+
+
+For i = 0 To R - 1
+ Cartas(i) = Aux(C + i)
+Next
+For i = 0 To C - 1
+ Cartas(R + i) = Aux(i)
+Next
+
+
+' Text1.Text = C
+'List1.Clear
+'For i = 0 To 39
+'List1.AddItem Img_carta(Cartas(i))
+'Next
+
+
+End Sub
+
+
+
+Private Sub CmdCortar_Click()
+Dim i
+For i = 0 To 39
+  Image1(i).Visible = False
+ Next
+Cortar
+End Sub
+
+Private Sub init_cartas()
+Dim Palo(4) As String
+Dim i, j, k
+
+Palo(0) = "O"
+Palo(1) = "C"
+Palo(2) = "E"
+Palo(3) = "B"
+
+For i = 0 To 3
+    For j = 0 To 6
+      Img_carta(i * 10 + j) = Palo(i) & CStr(j + 1) & ".jpg"
+    Next
+Next
+For i = 0 To 3
+    For j = 7 To 9
+      Img_carta(i * 10 + j) = Palo(i) & CStr(j + 1 + 2) & ".jpg"
+    Next
+Next
+For i = 0 To 39
+    Image1(i).Height = 2000
+    Image1(i).Width = 1400
+    Image1(i).Stretch = True
+Next
+For j = 0 To 4
+    For i = 0 To 7
+     Image1(j * 8 + i).Left = Image1(0).Width * i + 500
+     Image1(j * 8 + i).Top = 2000 + j * Image1(0).Height * 0.5
+    Next
+Next
+End Sub
+
+
+Private Sub CmdMezclar_Click()
+Dim i As Integer
+For i = 0 To 39
+  Image1(i).Visible = False
+ Next
+Mezclar
+End Sub
+Private Sub CmdRepartir_Click()
+Dim i, j, k
+
+For k = 0 To 4
+  List1(k).Clear
+  'List1(k).Sorted = True
+Next
+For k = 0 To 4
+  If Option1(k).Value = True Then
+    Option1(k).Value = False
+  End If
+  'List1(k).Sorted = True
+Next
+
+
+For i = 0 To 39
+  Image1(i).Visible = False
+ Next
+
+For i = 0 To 1      '2 rondads de cartas
+  For j = 0 To 4    '5 jugadores
+    For k = 0 To 3  '4 cartas por jugador
+     'Image1(i * 4 + j * 8 + k).Picture = LoadPicture("C:\_llamatres\" & Img_carta(Cartas(i * 20 + j * 4 + k)))
+     List1(j).AddItem Img_carta(Cartas(i * 20 + j * 4 + k))
+    Next
+  Next
+Next
+For j = 0 To 4
+ For k = 0 To 7
+   Image1(8 * j + k).Picture = LoadPicture("C:\_llamatres\" & List1(j).List(k))
+   ProgressBar1.Value = 100 * (8 * j + k)
+ Next
+Next
+
+
+End Sub
+
+
+Private Sub Option1_Click(Index As Integer)
+Dim i, j, k
+ For i = 0 To 39
+  Image1(i).Visible = False
+ Next
+
+Select Case Index
+
+Case 0
+ For i = 0 To 7
+  Image1(i).Visible = True
+ Next
+Case 1
+ For i = 8 To 15
+  Image1(i).Visible = True
+ Next
+Case 2
+ For i = 16 To 23
+  Image1(i).Visible = True
+ Next
+
+Case 3
+ For i = 24 To 31
+  Image1(i).Visible = True
+ Next
+
+Case 4
+ For i = 32 To 39
+  Image1(i).Visible = True
+ Next
+
+End Select
+End Sub
+ */
