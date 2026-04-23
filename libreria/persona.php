@@ -1,5 +1,5 @@
 <?php
-include_once("motor.php");
+require_once "motor.php";
 
 //ESTE CODIGO FUE MIGRADO DESDE LA EXTENSION ANTIGUA MYSQL A LA NUEVA MYSQLi
 //UTILIZANDO LA INTERFAZ ORIENTADA A OBJETOS (http://php.net/manual/es/mysqli.quickstart.dual-interface.php)

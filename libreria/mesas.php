@@ -1,5 +1,5 @@
 <?php
-include_once("motor.php");
+require_once "motor.php";
 
 
 class Mesa{
@@ -13,6 +13,12 @@ class Mesa{
  public $id_j3;
  public $id_j4;
  public $id_j5;
+
+ public $sts_j1;
+ public $sts_j2;
+ public $sts_j3;
+ public $sts_j4;
+ public $sts_j5;
  public $pts1;
  public $pts2;
  public $pts3;
@@ -49,8 +55,7 @@ class Mesa{
    echo "mesa nueva ".$n_mesa;
 
 
-   $sql="UPDATE usuarios set status_M = 'J', id_mesa = '$n_mesa',nro_jugador='1' 
-			where id='$nro_j'";
+   $sql="UPDATE usuarios set status_M = 'J', id_mesa = '$n_mesa',nro_jugador='1' where id='$nro_j'";
    $objConn->enlace->query($sql);
 
  }
@@ -63,7 +68,7 @@ class Mesa{
 		
 		$objConn = new Conexion();
 		$rs=$objConn->enlace->query($sql);
-		$m_activas=array();
+		$m_activas = [];
 		
 		while($fila=mysqli_fetch_assoc($rs)){
 		  $m_activas[]=$fila;
@@ -111,6 +116,21 @@ class Mesa{
 			return $row;
 		}
 	}
+
+	static function traer_status_mesa($nro=0) 
+	{
+		if ($nro!=0)
+		{
+			$sql="select sts_j1,sts_j2,sts_j3,sts_j4,sts_j5 from mesas where id_mesa = $nro";
+			//$result=mysql_query($sql);
+			$objConn = new Conexion();
+            $result = $objConn->enlace->query($sql);
+			$recs=mysqli_num_rows($result);
+			$row=mysqli_fetch_array($result,MYSQLI_NUM);
+						
+			return $row;
+		}
+	}
 	
 	static function ver_jugador_en_mesa($nro_mesa,$id_jugador) 
 	{
@@ -122,8 +142,7 @@ class Mesa{
 			//$result=mysql_query($sql);
 			$objConn = new Conexion();
             $result = $objConn->enlace->query($sql);
-			$recs=mysqli_num_rows($result);
-			
+			$recs=mysqli_num_rows($result);			
 		}
 		return $recs;
 	}
@@ -155,6 +174,7 @@ class Mesa{
 			}
 			
 		}
+		return $pm;
 		
 	}
 	static function lugar_libre_en_mesa($nro_mesa) 
@@ -204,6 +224,33 @@ class Mesa{
 			
 			$objConn = new Conexion();
 			$objConn->enlace->query($sql1);
+
+			
+            			
+	}
+
+static function act_mesa_unirse_jugar($nro_mesa,$id_jugador)	
+	{       //echo "unirse_ mesa ".$nro_mesa;
+	       
+			//Actualizar el estado del jugador en la mesa - sts=1 
+            $pm=self::posicion_en_mesa($nro_mesa,$id_jugador);
+			$sql="update mesas set sts_j".$pm."='1'  where id_mesa = '$nro_mesa'";
+			    
+
+			$objConn = new Conexion();
+            $objConn->enlace->query($sql);
+            //Actualizar el estado del usuario
+			$sql1="UPDATE usuarios set status_J = 'J', id_mesa = '$nro_mesa',nro_jugador='$pm' 
+			where id='$id_jugador'";
+
+			//echo $sql1;
+			
+			$objConn = new Conexion();
+			$objConn->enlace->query($sql1);
+
+			
+
+			
             			
 	}
 
@@ -227,20 +274,30 @@ class Mesa{
             			
 	}
 
- function actualizar($nro=0)	// actualiza cartel
-	{
-	        
-			$sql="update carteles set categoria='$this->categoria', titulo='$this->titulo',texto='$this->texto'
-			,imagen='$this->imagen',plantilla='$this->plantilla',v_desde='$this->v_desde'
-			,v_hasta='$this->v_hasta',activo='$this->activo',link='$this->link' 
-			,texto1='$this->texto1',texto2='$this->texto2',imagen1='$this->imagen1' 
-			 where id_cartel = $nro";
-			//mysql_query($sql); // ejecuta la consulta para actualizar
+	static function act_mesa_salirse_jugar($nro_mesa,$id_jugador)	
+	{       //echo "unirse_ mesa ".$nro_mesa;
+	       
+			//Actualizar el estado del jugador en la mesa - sts=0
+            $pm=self::posicion_en_mesa($nro_mesa,$id_jugador);
+			$sql="update mesas set sts_j".$pm."='0'  where id_mesa = '$nro_mesa'";
+			    
+
 			$objConn = new Conexion();
             $objConn->enlace->query($sql);
+            //Actualizar el estado del usuario
+			$sql1="UPDATE usuarios set status_J = 'S', id_mesa = '$nro_mesa',nro_jugador='$pm' 
+			where id='$id_jugador'";
+
+			//echo $sql1;
+			
+			$objConn = new Conexion();
+			$objConn->enlace->query($sql1);
+
+			
             			
 	}
-	
+
+ 
  
  function borrar($nro=0)	
 	{

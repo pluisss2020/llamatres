@@ -11,7 +11,9 @@ Mesa::act_mesa_unirse($mesa,$jugador);
 $pm=Mesa::posicion_en_mesa($mesa,$jugador);
 $_SESSION['nro_jugador']   = $pm;
 
+
 ?>
+
 <script>
    cargar('#capa_M','mesas_activas.php');
    ver_jugadores(getElementById('#nro_mesa'));

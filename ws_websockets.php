@@ -1,21 +1,7 @@
 <?php
-//Créditos para https://github.com/ghedipunk/PHP-Websockets.
-//Comentado para el blog www.NATapuntes.es.
 
-/*
-Copyright (c) 2012, Adam Alexander
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-* Neither the name of PHP WebSockets nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-require_once('ws_users.php');
+//require_once('./daemonize.php');
+require_once('./ws_users.php');
 
 abstract class WebSocketServer {
 
@@ -32,17 +18,15 @@ abstract class WebSocketServer {
 
   function __construct($addr, $port, $bufferLength = 2048) {
     $this->maxBufferSize = $bufferLength;
-    //Crea el socket maestro
     $this->master = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)  or die("Failed: socket_create()");
-    //Le añade opciones de conexión
     socket_set_option($this->master, SOL_SOCKET, SO_REUSEADDR, 1) or die("Failed: socket_option()");
-    //Asigna al socket maestro la IP y el puerto
     socket_bind($this->master, $addr, $port)                      or die("Failed: socket_bind()");
-    //El socket maestro comienza a escuchar peticiones
     socket_listen($this->master,20)                               or die("Failed: socket_listen()");
-    //Se añade el socket maestro al array de sockets abiertos
     $this->sockets['m'] = $this->master;
-    $this->stdout("Server started\nListening on: $addr:$port\nMaster socket: ".$this->master);
+    $this->stdout("Server started\nListening on: $addr:$port\nMaster socket: ");
+var_dump($this->master);
+
+
 
     
   }
@@ -56,7 +40,6 @@ abstract class WebSocketServer {
     // the handshake has completed.
   }
   
-  //Manda un mensaje a un usuario
   protected function send($user, $message) {
     if ($user->handshake) {
       $message = $this->frame($message,$user);
@@ -102,15 +85,12 @@ abstract class WebSocketServer {
       if (empty($this->sockets)) {
         $this->sockets['m'] = $this->master;
       }
-      //Copia el array de sockets a esta variable
       $read = $this->sockets;
       $write = $except = null;
       $this->_tick();
       $this->tick();
-      //Detecta qué sockets han sufrido cambios para proceder a leerlos y los almacena en $read
       @socket_select($read,$write,$except,1);
       foreach ($read as $socket) {
-        //Si es el socket master, significa que un nuevo cliente ha pedido crear una conexión con el servidor
         if ($socket == $this->master) {
           $client = socket_accept($socket);
           if ($client < 0) {
@@ -119,18 +99,16 @@ abstract class WebSocketServer {
           } 
           else {
             $this->connect($client);
-            $this->stdout("Client connected. " . $client);
+            $this->stdout("Client connected. " . var_export($client, true));
+
           }
-        }
-        //En otro caso, el cliente ya estaba conectado y manda alguna información
+        } 
         else {
           $numBytes = @socket_recv($socket, $buffer, $this->maxBufferSize, 0); 
-          //Si hubo error al recibir los datos: error de conexión
           if ($numBytes === false) {
             $sockErrNo = socket_last_error($socket);
             switch ($sockErrNo)
             {
-              //case 0:  //Don't know, maybe when connection closed
               case 102: // ENETRESET    -- Network dropped connection because of reset
               case 103: // ECONNABORTED -- Software caused connection abort
               case 104: // ECONNRESET   -- Connection reset by peer
@@ -139,38 +117,31 @@ abstract class WebSocketServer {
               case 111: // ECONNREFUSED -- Connection refused -- We shouldn't see this one, since we're listening... Still not a critical error.
               case 112: // EHOSTDOWN    -- Host is down -- Again, we shouldn't see this, and again, not critical because it's just one connection and we still want to listen to/for others.
               case 113: // EHOSTUNREACH -- No route to host
-              case 121: // EREMOTEIO    -- Remote I/O error -- Their hard drive just blew up.
+              case 121: // EREMOTEIO    -- Rempte I/O error -- Their hard drive just blew up.
               case 125: // ECANCELED    -- Operation canceled
-              case 10053: // ??     -- Connection aborted
                 
                 $this->stderr("Unusual disconnect on socket " . $socket);
                 $this->disconnect($socket, true, $sockErrNo); // disconnect before clearing error, in case someone with their own implementation wants to check for error conditions on the socket.
                 break;
               default:
 
-                $this->stderr('Socket error ('.$sockErrNo.'): ' . socket_strerror($sockErrNo));
-                $this->disconnect($socket, true, $sockErrNo); // disconnect before clearing error, in case someone with their own implementation wants to check for error conditions on the socket.
-                break;
+                $this->stderr('Socket error: ' . socket_strerror($sockErrNo));
             }
             
           }
-          //Si NO hubo error al recibir los datos PERO se reciben 0 bytes => conexión perdida
           elseif ($numBytes == 0) {
             $this->disconnect($socket);
             $this->stderr("Client disconnected. TCP connection lost: " . $socket);
-          }
-          //Si no hubo ningún error y la información no está vacía...
+          } 
           else {
             $user = $this->getUserBySocket($socket);
-            // If the client has not finished sending the header, then wait before sending our upgrade response.
             if (!$user->handshake) {
               $tmp = str_replace("\r", '', $buffer);
               if (strpos($tmp, "\n\n") === false ) {
-                continue; 
+                continue; // If the client has not finished sending the header, then wait before sending our upgrade response.
               }
               $this->doHandshake($user,$buffer);
             } 
-            //Finalmente, si no hubo errores, se parte el paquete en frames y se ejecuta el método abstracto "process"
             else {
               //split packet into frame and send it to deframe
               $this->split_packet($numBytes,$buffer, $user);
@@ -182,7 +153,7 @@ abstract class WebSocketServer {
   }
 
   protected function connect($socket) {
-    $user = new $this->userClass(uniqid('u'), $socket);
+    $user = new $this->userClass(uniqid('u'), $socket, uniqid('myId_'));
     $this->users[$user->id] = $user;
     $this->sockets[$user->id] = $socket;
     $this->connecting($user);
@@ -203,7 +174,8 @@ abstract class WebSocketServer {
       }
 
       if ($triggerClosed) {
-        $this->stdout("Client disconnected. ".$disconnectedUser->socket);
+        $this->stdout("Client connected. " . var_export($disconnectedUser->socket, true));
+
         $this->closed($disconnectedUser);
         socket_close($disconnectedUser->socket);
       }
@@ -261,7 +233,7 @@ abstract class WebSocketServer {
     }
     if (($this->headerSecWebSocketExtensionsRequired && !isset($headers['sec-websocket-extensions'])) || ($this->headerSecWebSocketExtensionsRequired && !$this->checkWebsocExtensions($headers['sec-websocket-extensions']))) {
       $handshakeResponse = "HTTP/1.1 400 Bad Request";
-    }   
+    }
 
     // Done verifying the _required_ headers and optionally required headers.
 

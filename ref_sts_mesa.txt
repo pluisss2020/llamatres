@@ -1,0 +1,56 @@
+json_encode($M);               DESCRIPCION
+----------------               -------------------
+
+0: "3",                        id_mesa
+1: "plinda",                   nombre   
+2: "2021-10-24 09:58:32",      fecha_i
+3: "2021-10-24 09:58:32",      fecha_f
+4: "A",                        status mesa 
+5: "1",                        id juagador 1
+6: "9",                        id juagador 2
+7: "10",                       id juagador 3
+8: "8",                        id juagador 4
+9: "12",                       id juagador 5
+10: "0" ,                      sts juagador 1
+11: "0" ,                      sts juagador 2
+12: "0" ,                      sts juagador 3
+13: "0" ,                      sts juagador 4
+14: "0" ,                      sts juagador 5
+15: "0" ,                      pts juagador 1
+16: "0" ,                      pts juagador 2
+17: "0" ,                      pts juagador 3
+18: "0" ,                      pts juagador 4
+19: "0" ,                      pts juagador 5
+
+Unirse a la mesa para jugar (sentarse):  El jugador debe estar registrado en esa mesa.
+--------------------------------------------------------------------------------------
+
+En MESAS ACTIVAS click en el boton [V] - ver_jugadores(nro_mesa) en funciones_m.js
+js->ver_jugadores(nro_mesa) -> muestra (en una tabla debajo) la mesa y los jugadores registrados.
+                     Debe mostrar tambien los que ya estan sentados para jugar.
+ 
+js->ver_jugadores(nro_mesa) -> Carga la mesa elegida con los jugadores registrados 
+y presenta tres botones :
+
+[-] ó [+] 
+[U]
+[S] 
+
+Si el jugador ya se encuentra logueado Y  Si el jugador esta en la lista (está registrado) puede :
+[-] -> Para dejar de estar registrado en esta mesa.
+[U] -> Para sentarse a jugar en la mesa.
+[S] -> Para levantarse y dejar de jugar en esta mesa.
+
+Si el jugador ya se encuentra logueado Y  No está en la lista (No está registrado) puede :
+[+] -> Para Registrarse en esta mesa.Luego deben aparecer los botones [U] y [S].
+
+Boton [U] -> js.unirse_mesa_jugar(nro_mesa,id_jugador) . en funciones_m.js
+Debe : 1)Actualizar su estatus en el registro (BD.mesas) pasa sts=0 a sts=1 del jugador(unirse_mesa_jugar.php)
+       2)El servidor WS difundir el estatus completo de la mesa.
+       3)Cada cliente actualizar la vista poniendo en verde los jugadores con sts=1 y en azul los de sts=0
+       4)Cuando la mesa esta completa habilitar el comienzo del juego.
+
+Boton [S] -> js.salir_mesa_jugar(nro_mesa,id_jugador) .en funciones_m.js
+Debe : 1)Actualizar su estatus en el registro (BD.mesas) pasa sts=1 a sts=0 del jugador(unirse_mesa_jugar.php)
+       2)El servidor WS difundir el estatus completo de la mesa.
+       3)Al estar la mesa incompleta deshabilitar el comienzo del juego.

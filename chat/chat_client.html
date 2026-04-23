@@ -21,7 +21,7 @@ var socket;
 
 function init() {
 	// Apuntar a la IP/Puerto configurado en el contructor del WebServerSocket, que es donde está escuchando el socket.
-	var host = "ws://localhost:9000";
+	var host = "ws://localhost:9069";
 	try {
 		socket = new WebSocket(host);
 		log('WebSocket - Estatus '+socket.readyState);

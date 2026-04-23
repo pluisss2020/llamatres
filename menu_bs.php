@@ -10,27 +10,19 @@ session_start();
 
    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" >
    
-   <!-----script src="bootstrap/js/jquery-3.1.0.min.js"></script--->
+   
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    
-   <!---script src="bootstrap/js/bootstrap.min.js"></script--->
+   
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
    <script src="bootstrap/js/funciones_gral.js"></script>
    <link rel="stylesheet" href="bootstrap/css/style_chat.css" media="all"/>	
    <link rel="stylesheet" href="bootstrap/ui/jquery-ui.css">
    <link rel="stylesheet" href="bootstrap/cust.css">
-   <script src="bootstrap/ui/jquery-ui.js"></script>
-   <script src="bootstrap/js/funciones_m.js"></script>
-  
-     
-   <!-----https://sourcecodesite.com/how-to-create-chat-system-in-php-using-ajax-2.html--->
-   <!--Include Custom CSS-->
-   <!---
-   <script src="bootstrap/js/funciones_e.js"></script>
-   <script src="bootstrap/js/funciones_d.js"></script>
-   --->
    
+   
+      
   
    <style>
 pre {
@@ -45,10 +37,11 @@ pre {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('images/b_bkg_3.jpg');
+    background-image: url('images/');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%;
+    background-color: #F0DCDC;
     opacity: 0.6;
     filter:alpha(opacity=80);
 }
@@ -56,7 +49,7 @@ pre {
  </head>
  
  <!-----body style="padding: 0px 0px 0px 0px;background-image: url(images/b_bkg_4.jpg);" onload="cargar('#capa_P','txts/init_1.html');cargar('#capa_C','txts/init_2.html')"---->
- <body style="padding: 0px 0px 0px 0px;"  >
+ <body style="padding: 0px 0px 0px 0px;font-size: 18px;"  >
   <div id="background"></div>
  <div class="container-fluid" >
  
@@ -139,5 +132,7 @@ pre {
 
 
 </div>
- 
+<script src="bootstrap/ui/jquery-ui.js"></script>
+<script src="bootstrap/js/funciones_m.js"></script>
+<script src="bootstrap/js/llamatres.js"></script>
 </body>

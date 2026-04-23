@@ -86,9 +86,10 @@ $(document).ready(function(){
              }).done(function (html) {
                  $('#capa_J').html(html);
              });
-         }
+         
+            }
 
-         function unirse_mesa(nro_mesa,id_jugador) {
+         function unirse_mesa(nro_mesa,id_jugador) {//esta union a la mesan permanece en el tiempo
             //alert ("unirse a mesa "+nro_mesa+" el jugador "+id_jugador);           
             $.ajax({
                 type: "POST",
@@ -99,13 +100,35 @@ $(document).ready(function(){
             });
         }
 
-        function salirse_mesa(nro_mesa,id_jugador,num_jugador) {
-            alert ("salirse a mesa "+nro_mesa+" el jugador "+id_jugador+"En la posicion "+num_jugador);           
+        function unirse_mesa_jugar(nro_mesa,id_jugador) {//el jugador confirma que se une para jugar en esta mesa en este dia
+            //alert ("unirse a mesa "+nro_mesa+" el jugador "+id_jugador);           
+            $.ajax({
+                type: "POST",
+                url: "unirse_mesa_jugar.php",
+                data: {mesa: nro_mesa, jugador: id_jugador}
+            }).done(function (html) {
+                $('#capa_J').html(html);
+            });
+        }
+
+        function salirse_mesa(nro_mesa,id_jugador,num_jugador) {//esta desvinculacion de la mesa permanece en el tiempo
+            //alert ("salirse a mesa "+nro_mesa+" el jugador "+id_jugador+"En la posicion "+num_jugador);           
             $.ajax({
                 type: "POST",
                 url: "salirse_mesa.php",
                 data: {mesa: nro_mesa, jugador: id_jugador,n_jug: num_jugador}
             }).done(function (html) {
                 $('#capa_J').html(html);
+            });
+        }
+
+        function salir_mesa_jugar(nro_mesa,id_jugador) {//el jugador confirma que deja de jugar en esta mesa en este dia
+            //alert ("Deja de jugar en la mesa "+nro_mesa+" el jugador "+id_jugador);           
+            $.ajax({
+                type: "POST",
+                url: "salirse_mesa_jugar.php",
+                data: {mesa: nro_mesa, jugador: id_jugador}
+            }).done(function (html) {
+                //$('#capa_J').html(html);
             });
         }

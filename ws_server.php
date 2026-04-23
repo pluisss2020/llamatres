@@ -1,11 +1,5 @@
-#!/usr/bin/env php
 <?php
-//Ejecutar desde la línea de comandos de PHP. 
-//Ejemplo: "C:\xampp\php\php.exe" -q C:\xampp\daemons\sala_chat\SalaChatServer.php
-//Este archivo debe estar fuera de las carpetas HTTP públicas pues correrá como un servicio/daemon.
-
 require_once('ws_websockets.php');
-
 class SalaChatServer extends WebSocketServer {  
   protected function process ($user, $message) {
     echo 'user sent: '.$message.PHP_EOL;

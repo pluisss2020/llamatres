@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-12-2021 a las 22:46:47
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 15-12-2025 a las 20:34:51
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `carteles` (
   `texto1` text DEFAULT NULL,
   `texto2` text DEFAULT NULL,
   `imagen1` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `carteles`
@@ -61,7 +61,7 @@ CREATE TABLE `chat` (
   `name` varchar(255) NOT NULL,
   `msg` varchar(255) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ CREATE TABLE `chat` (
 
 CREATE TABLE `estados` (
   `codigo` int(2) NOT NULL,
-  `descripcion` text COLLATE latin1_spanish_ci NOT NULL
+  `descripcion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -85,7 +85,7 @@ CREATE TABLE `log_user` (
   `id_usuario` smallint(6) UNSIGNED NOT NULL,
   `fecha` date NOT NULL DEFAULT '2000-01-01',
   `hora` time NOT NULL DEFAULT '00:00:00',
-  `ip` varchar(25) COLLATE latin1_spanish_ci DEFAULT NULL
+  `ip` varchar(25) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 -- --------------------------------------------------------
@@ -105,25 +105,30 @@ CREATE TABLE `mesas` (
   `id_j3` int(11) NOT NULL DEFAULT 0,
   `id_j4` int(11) NOT NULL DEFAULT 0,
   `id_j5` int(11) NOT NULL DEFAULT 0,
+  `sts_j1` int(2) NOT NULL DEFAULT 0,
+  `sts_j2` int(2) NOT NULL DEFAULT 0,
+  `sts_j3` int(2) NOT NULL DEFAULT 0,
+  `sts_j4` int(2) NOT NULL DEFAULT 0,
+  `sts_j5` int(2) NOT NULL DEFAULT 0,
   `pts1` int(11) NOT NULL DEFAULT 0,
   `pts2` int(11) NOT NULL DEFAULT 0,
   `pts3` int(11) NOT NULL DEFAULT 0,
   `pts4` int(11) DEFAULT 0,
   `pts5` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `mesas`
 --
 
-INSERT INTO `mesas` (`id_mesa`, `nombre`, `fecha_i`, `fecha_f`, `status_M`, `id_j1`, `id_j2`, `id_j3`, `id_j4`, `id_j5`, `pts1`, `pts2`, `pts3`, `pts4`, `pts5`) VALUES
-(3, 'plinda', '2021-10-24 09:58:32', '2021-10-24 09:58:32', 'A', 1, 9, 10, 8, 12, 0, 0, 0, 0, 0),
-(4, 'pfea', '2021-10-24 09:59:01', '2021-10-24 09:59:01', 'A', 1, 9, 8, 0, 0, 0, 0, 0, 0, 0),
-(5, 'frangaso', '2021-10-24 10:00:16', '2021-10-24 10:00:16', 'J', 9, 10, 11, 13, 14, 2, 1, 0, -3, 4),
-(6, 'parnangarazo', '2021-10-26 02:00:30', '2021-10-26 02:00:30', 'A', 13, 9, 0, 8, 0, 0, 0, 0, 0, 0),
-(8, 'FROTOSZA', '2021-10-29 12:37:14', '2021-10-29 12:37:14', 'A', 10, 8, 1, 0, 0, 0, 0, 0, 0, 0),
-(9, 'OnceDeBasto', '2021-10-29 01:40:24', '2021-10-29 01:40:24', 'A', 12, 8, 1, 0, 0, 0, 0, 0, 0, 0),
-(10, 'TrilloYpico', '2021-10-29 01:43:32', '2021-10-29 01:43:32', 'A', 12, 8, 1, 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `mesas` (`id_mesa`, `nombre`, `fecha_i`, `fecha_f`, `status_M`, `id_j1`, `id_j2`, `id_j3`, `id_j4`, `id_j5`, `sts_j1`, `sts_j2`, `sts_j3`, `sts_j4`, `sts_j5`, `pts1`, `pts2`, `pts3`, `pts4`, `pts5`) VALUES
+(3, 'plinda', '2021-10-24 09:58:32', '2021-10-24 09:58:32', 'A', 1, 9, 10, 8, 12, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0),
+(4, 'pfea', '2021-10-24 09:59:01', '2021-10-24 09:59:01', 'A', 1, 9, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'frangaso', '2021-10-24 10:00:16', '2021-10-24 10:00:16', 'J', 9, 10, 11, 13, 14, 0, 0, 0, 0, 0, 2, 1, 0, -3, 4),
+(6, 'parnangarazo', '2021-10-26 02:00:30', '2021-10-26 02:00:30', 'A', 13, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'FROTOSZA', '2021-10-29 12:37:14', '2021-10-29 12:37:14', 'A', 10, 8, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 'OnceDeBasto', '2021-10-29 01:40:24', '2021-10-29 01:40:24', 'A', 12, 8, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(10, 'TrilloYpico', '2021-10-29 01:43:32', '2021-10-29 01:43:32', 'A', 12, 8, 1, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -138,7 +143,7 @@ CREATE TABLE `naipes` (
   `naipe` varchar(4) NOT NULL,
   `status_N` varchar(1) NOT NULL DEFAULT 'A',
   `nro_jug` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -148,16 +153,16 @@ CREATE TABLE `naipes` (
 
 CREATE TABLE `personas` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `apellido` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `sexo` varchar(20) COLLATE latin1_spanish_ci NOT NULL,
-  `dni` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `carrera` varchar(20) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `telefono` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `email` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `user` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `passwd` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
-  `rol` varchar(20) COLLATE latin1_spanish_ci NOT NULL
+  `nombre` varchar(30) NOT NULL,
+  `apellido` varchar(30) NOT NULL,
+  `sexo` varchar(20) NOT NULL,
+  `dni` varchar(20) DEFAULT NULL,
+  `carrera` varchar(20) DEFAULT NULL,
+  `telefono` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `user` varchar(50) NOT NULL,
+  `passwd` varchar(32) NOT NULL,
+  `rol` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -181,8 +186,8 @@ INSERT INTO `personas` (`id`, `nombre`, `apellido`, `sexo`, `dni`, `carrera`, `t
 
 CREATE TABLE `roles` (
   `id_rol` int(11) NOT NULL,
-  `rol` varchar(30) COLLATE latin1_spanish_ci NOT NULL,
-  `descripcion` varchar(128) COLLATE latin1_spanish_ci NOT NULL DEFAULT 'Puede :'
+  `rol` varchar(30) NOT NULL,
+  `descripcion` varchar(128) NOT NULL DEFAULT 'Puede :'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -214,16 +219,16 @@ CREATE TABLE `usuarios` (
   `nro_jugador` int(1) NOT NULL DEFAULT 0,
   `passwd` varchar(32) NOT NULL,
   `foto` varchar(64) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nick`, `email`, `rol`, `imagen`, `puntos`, `status_J`, `id_mesa`, `nro_jugador`, `passwd`, `foto`) VALUES
-(1, 'lp', '', 'administrador', '', 0, 'J', 8, 3, '81dc9bdb52d04dc20036dbd8313ed055', NULL),
-(8, 'fertengo', 'fr@gmail.com', 'Jugador', '', 0, 'J', 6, 4, '81dc9bdb52d04dc20036dbd8313ed055', ''),
-(9, 'frotongas', 'pr@cmail.com', 'Jugador', '', 0, 'J', 0, 1, '81dc9bdb52d04dc20036dbd8313ed055', ''),
+(1, 'lp', '', 'administrador', '', 0, 'J', 3, 1, '81dc9bdb52d04dc20036dbd8313ed055', NULL),
+(8, 'fertengo', 'fr@gmail.com', 'Jugador', '', 0, 'J', 3, 4, '81dc9bdb52d04dc20036dbd8313ed055', ''),
+(9, 'frotongas', 'pr@cmail.com', 'Jugador', '', 0, 'J', 3, 2, '81dc9bdb52d04dc20036dbd8313ed055', ''),
 (10, 'frandanga', 'fr@ltmail.com', 'Jugador', 'B11.jpg', 0, 'J', 3, 3, '81dc9bdb52d04dc20036dbd8313ed055', ''),
 (11, 'prandosa', 'prandosa@ltmail.com', 'Jugador', 'x', 0, '', 0, 0, '81dc9bdb52d04dc20036dbd8313ed055', ''),
 (12, 'antoper', 'ap@gmail', 'Jugador', '', 0, 'J', 3, 5, '81dc9bdb52d04dc20036dbd8313ed055', NULL),
